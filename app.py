@@ -262,6 +262,15 @@ section[data-testid="stSidebar"] [data-testid="stMetricValue"] {{ color:#fff; fo
 
 /* number inputs / selects rounding */
 .stNumberInput input, .stSelectbox div[data-baseweb="select"]>div {{ border-radius:10px !important; }}
+
+/* Readable text-selection everywhere (fixes navy-on-navy disappearing text) */
+::selection {{ background:{ACCENT}; color:#ffffff; }}
+::-moz-selection {{ background:{ACCENT}; color:#ffffff; }}
+
+/* Make sure input + dropdown text and labels are always legible on dark fields */
+.stNumberInput label, .stSelectbox label, .stMultiSelect label {{ color:var(--ink) !important; }}
+.stNumberInput input {{ color:#ffffff !important; background:#0E1A38 !important; }}
+.stSelectbox div[data-baseweb="select"] *, .stSelectbox div[data-baseweb="select"] {{ color:#ffffff !important; }}
 </style>
 """, unsafe_allow_html=True)
 
