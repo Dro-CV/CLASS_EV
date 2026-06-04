@@ -259,6 +259,10 @@ section[data-testid="stSidebar"] [data-testid="stMetricValue"] {{ color:#fff; fo
 /* Expander */
 [data-testid="stExpander"] {{ border:1px solid var(--line) !important; border-radius:16px !important;
   box-shadow:var(--shadow); background:var(--surface); }}
+/* Expander header text must be dark/readable (was rendering white-on-white) */
+[data-testid="stExpander"] summary, [data-testid="stExpander"] summary * {{
+  color:var(--ink) !important; font-weight:700 !important; }}
+[data-testid="stExpander"] summary svg {{ fill:var(--slate) !important; }}
 
 /* number inputs / selects rounding */
 .stNumberInput input, .stSelectbox div[data-baseweb="select"]>div {{ border-radius:10px !important; }}
