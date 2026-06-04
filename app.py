@@ -476,7 +476,7 @@ st.markdown(f"<div class='note'>Revenue peaks in <b>{monthly.idxmax()}</b> ({mon
 with st.expander("More analytics · scatter & correlation heatmap"):
     cA, cB = st.columns(2, gap="large")
     with cA:
-        st.markdown("**Website Visits vs Revenue**")
+        st.markdown(f"<div style='font-size:14px;font-weight:700;color:{INK};margin-bottom:6px'>Website Visits vs Revenue</div>", unsafe_allow_html=True)
         fig, ax = plt.subplots(figsize=(5.2, 3.4)); style_ax(ax)
         ax.scatter(f.Website_Visits, f[TARGET], s=16, alpha=.45, color=ACCENT,
                    edgecolor="white", linewidth=.4, zorder=3)
@@ -486,13 +486,19 @@ with st.expander("More analytics · scatter & correlation heatmap"):
         st.markdown(f"<div class='note'>Correlation of <b>{corr_wv:.2f}</b> in this selection "
                     f"(linear association only).</div>", unsafe_allow_html=True)
     with cB:
-        st.markdown("**Correlation Heatmap (numeric fields)**")
+        st.markdown(f"<div style='font-size:14px;font-weight:700;color:{INK};margin-bottom:6px'>Correlation Heatmap (numeric fields)</div>", unsafe_allow_html=True)
         num_cols = ['Unit_Price_USD', 'Units_Sold', 'Discount_Rate', 'Ad_Spend_USD',
                     'Website_Visits', 'Delivery_Days', 'Customer_Rating',
                     'Revenue_USD', 'Cost_USD', 'Profit_USD']
         corr = f[num_cols].corr()
         fig, ax = plt.subplots(figsize=(6, 5))
         im = ax.imshow(corr, cmap='RdBu_r', vmin=-1, vmax=1)
+        # Annotate every cell with its correlation value (white on dark cells, dark on light)
+        for i in range(len(num_cols)):
+            for j in range(len(num_cols)):
+                v = corr.iloc[i, j]
+                ax.text(j, i, f"{v:.2f}", ha='center', va='center', fontsize=6.5,
+                        color='white' if abs(v) > 0.55 else '#0B1220')
         ax.set_xticks(range(len(num_cols))); ax.set_yticks(range(len(num_cols)))
         ax.set_xticklabels(num_cols, rotation=45, ha='right', fontsize=7)
         ax.set_yticklabels(num_cols, fontsize=7)
